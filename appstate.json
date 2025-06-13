@@ -1,0 +1,74 @@
+[
+	{
+		"key": "dbln",
+		"value": "%7B%22100091167551986%22%3A%22z3LqsNqs%22%7D",
+		"domain": "facebook.com",
+		"path": "/login/device-based/",
+		"hostOnly": false,
+		"creation": "2025-06-13T09:35:07.155Z",
+		"lastAccessed": "2025-06-13T09:35:07.157Z"
+	},
+	{
+		"key": "datr",
+		"value": "sexLaDNMrwxQcmWXfF5U7d82",
+		"domain": "facebook.com",
+		"path": "/",
+		"hostOnly": false,
+		"creation": "2025-06-13T09:35:07.157Z",
+		"lastAccessed": "2025-06-13T09:35:07.157Z"
+	},
+	{
+		"key": "sb",
+		"value": "sexLaKUe16SnR4-w1YetxtPe",
+		"domain": "facebook.com",
+		"path": "/",
+		"hostOnly": false,
+		"creation": "2025-06-13T09:35:07.157Z",
+		"lastAccessed": "2025-06-13T09:35:07.157Z"
+	},
+	{
+		"key": "wd",
+		"value": "1358x650",
+		"domain": "facebook.com",
+		"path": "/",
+		"hostOnly": false,
+		"creation": "2025-06-13T09:35:07.157Z",
+		"lastAccessed": "2025-06-13T09:35:07.157Z"
+	},
+	{
+		"key": "c_user",
+		"value": "100091167551986",
+		"domain": "facebook.com",
+		"path": "/",
+		"hostOnly": false,
+		"creation": "2025-06-13T09:35:07.157Z",
+		"lastAccessed": "2025-06-13T09:35:07.157Z"
+	},
+	{
+		"key": "presence",
+		"value": "C%7B%22lm3%22%3A%22sc.30431081026483337%22%2C%22t3%22%3A%5B%5D%2C%22utc3%22%3A1749806424909%2C%22v%22%3A1%7D",
+		"domain": "facebook.com",
+		"path": "/",
+		"hostOnly": false,
+		"creation": "2025-06-13T09:35:07.157Z",
+		"lastAccessed": "2025-06-13T09:35:07.157Z"
+	},
+	{
+		"key": "fr",
+		"value": "1vOVbeR40GpoXkKaZ.AWf4uSfEmQxGQm5rBzeEXdWBPocRzUdwjyqC_CtKPUvoy9Rp96c.BoS-2g..AAA.0.0.BoS-2g.AWecXRp6XpDSoANDowj2LgoCaXE",
+		"domain": "facebook.com",
+		"path": "/",
+		"hostOnly": false,
+		"creation": "2025-06-13T09:35:07.157Z",
+		"lastAccessed": "2025-06-13T09:35:07.157Z"
+	},
+	{
+		"key": "xs",
+		"value": "3%3A7dDAvr7LsIOhaA%3A2%3A1749806366%3A-1%3A-1%3A%3AAcX79i5F1cZqUUHgotGm58GH50Dz-M9hFUhNOce7ew",
+		"domain": "facebook.com",
+		"path": "/",
+		"hostOnly": false,
+		"creation": "2025-06-13T09:35:07.157Z",
+		"lastAccessed": "2025-06-13T09:35:07.157Z"
+	}
+]
